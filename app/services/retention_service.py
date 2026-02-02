@@ -9,7 +9,7 @@ from aiogram import Bot
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, User as TgUser
 from app.core.logger import get_logger
 from app.core.config import config
-from app.locales.i18n import I18n
+
 from app.database.models import User
 from app.database.db import db
 from app.services.subscription_checker import SubscriptionChecker
@@ -23,7 +23,6 @@ class RetentionService:
     def __init__(self, bot: Bot):
         """Инициализировать сервис."""
         self.bot = bot
-        self.i18n = I18n()
         self.subscription_checker = SubscriptionChecker(bot)
     
     async def check_before_signals(

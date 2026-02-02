@@ -7,7 +7,7 @@ from aiogram.filters import Command
 
 from app.core.logger import get_logger
 from app.database.db import db
-from app.locales.i18n import t
+
 from app.services.soft_gate import SoftGateService
 from app.services.retention_service import RetentionService
 

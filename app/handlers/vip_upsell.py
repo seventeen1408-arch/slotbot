@@ -14,7 +14,7 @@ from aiogram.filters.callback_data import CallbackData
 
 from app.core.logger import get_logger
 from app.database.db import db
-from app.locales.i18n import t
+
 
 logger = get_logger(__name__)
 router = Router()
@@ -37,7 +37,7 @@ async def handle_buy_vip(callback: CallbackQuery, callback_data: VipUpsellCallba
         # Получить информацию о пользователе
         user = await db.get_user(user_id)
         if not user:
-            await callback.answer(t("error_user_not_found", user_id), show_alert=True)
+            await callback.answer("❌ User not found", show_alert=True)
             return
         
         # Создать счет для VIP (если есть VIP сервис)
@@ -72,7 +72,7 @@ async def handle_buy_vip(callback: CallbackQuery, callback_data: VipUpsellCallba
     
     except Exception as e:
         logger.error(f"❌ Ошибка при обработке VIP покупки: {e}", exc_info=True)
-        await callback.answer(t("error_occurred", user_id), show_alert=True)
+        await callback.answer("❌ An error occurred", show_alert=True)
 
 
 @router.callback_query(VipUpsellCallback.filter(F.action == "play_casino"))
@@ -87,7 +87,7 @@ async def handle_play_casino(callback: CallbackQuery, callback_data: VipUpsellCa
         # Получить ссылку на казино
         user = await db.get_user(user_id)
         if not user:
-            await callback.answer(t("error_user_not_found", user_id), show_alert=True)
+            await callback.answer("❌ User not found", show_alert=True)
             return
         
         # Получить click_id для отслеживания
@@ -123,7 +123,7 @@ async def handle_play_casino(callback: CallbackQuery, callback_data: VipUpsellCa
     
     except Exception as e:
         logger.error(f"❌ Ошибка при обработке казино ссылки: {e}", exc_info=True)
-        await callback.answer(t("error_occurred", user_id), show_alert=True)
+        await callback.answer("❌ An error occurred", show_alert=True)
 
 
 @router.callback_query(VipUpsellCallback.filter(F.action == "tomorrow"))
@@ -161,7 +161,7 @@ async def handle_tomorrow(callback: CallbackQuery, callback_data: VipUpsellCallb
     
     except Exception as e:
         logger.error(f"❌ Ошибка при обработке 'Завтра': {e}", exc_info=True)
-        await callback.answer(t("error_occurred", user_id), show_alert=True)
+        await callback.answer("❌ An error occurred", show_alert=True)
 
 
 # Глобальная функция для отправки VIP Upsell сообщения

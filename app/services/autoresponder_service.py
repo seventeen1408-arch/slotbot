@@ -10,7 +10,7 @@ from aiogram import Bot
 from aiogram.types import User as TgUser, InlineKeyboardMarkup, InlineKeyboardButton
 from app.core.logger import get_logger
 from app.core.config import config
-from app.locales.i18n import I18n
+
 from app.database.models import User
 from app.database.db import db
 
@@ -50,7 +50,6 @@ class AutoResponderService:
     def __init__(self, bot: Bot):
         """Инициализировать сервис."""
         self.bot = bot
-        self.i18n = I18n()
     
     async def handle_text(self, user_id: int, user: User, message_text: str) -> Optional[str]:
         """

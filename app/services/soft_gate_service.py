@@ -18,7 +18,7 @@ from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from app.core.logger import get_logger
 from app.core.config import config
 from app.database.db import db
-from app.locales.i18n import t
+
 
 logger = get_logger(__name__)
 
@@ -238,12 +238,12 @@ class SoftGateService:
         Отправить FOMO напоминание.
         """
         try:
-            text = t("fomo_reminder", user_id, minutes=minutes_left)
+            text = f"⏰ Your access expires in {minutes_left} minutes! View signals now."
             
             keyboard = InlineKeyboardMarkup(
                 inline_keyboard=[
                     [InlineKeyboardButton(
-                        text=t("btn_view_signals", user_id),
+                        text="📊 View Signals",
                         callback_data="signals_list"
                     )]
                 ]
@@ -283,12 +283,12 @@ class SoftGateService:
         Отправить сообщение об автоматическом разблокировании.
         """
         try:
-            text = t("auto_unlock_message", user_id)
+            text = "🎉 Your signals access has been unlocked for 24 hours! Start viewing signals now."
             
             keyboard = InlineKeyboardMarkup(
                 inline_keyboard=[
                     [InlineKeyboardButton(
-                        text=t("btn_view_signals", user_id),
+                        text="📊 View Signals",
                         callback_data="signals_list"
                     )]
                 ]

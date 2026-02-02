@@ -27,7 +27,7 @@ from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from app.core.logger import get_logger
 from app.core.config import config
 from app.database.db import db
-from app.locales.i18n import t
+
 
 logger = get_logger(__name__)
 
