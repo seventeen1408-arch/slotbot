@@ -11,7 +11,6 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 from app.core import config, get_logger
 from app.database.db import db
-from app.services.subscription import SubscriptionService
 from app.services.soft_gate_service import SoftGateService
 from app.services.autoresponder_service import AutoResponderService
 from app.services.retention_service import RetentionService
