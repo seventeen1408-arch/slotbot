@@ -18,7 +18,7 @@ class Config:
     DATABASE_PATH = os.getenv("DATABASE_PATH", "test_bot.db")
     
     # Soft gate settings
-    SOFT_GATE_UNLOCK_TIME = int(os.getenv("SOFT_GATE_UNLOCK_TIME", "300"))  # 5 минут
+    SOFT_GATE_UNLOCK_TIME = int(os.getenv("SOFT_GATE_UNLOCK_TIME", "25"))  # 25 секунд
     SOFT_GATE_CHECK_INTERVAL = int(os.getenv("SOFT_GATE_CHECK_INTERVAL", "10"))  # 10 секунд
     
     # Postback settings
