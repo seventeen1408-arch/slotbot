@@ -49,13 +49,6 @@ async def on_startup(bot: Bot, dispatcher: Dispatcher) -> None:
         # Запустить фоновые задачи
         scheduler = AsyncIOScheduler()
         
-        # Задача проверки и разблокировки сигналов (каждые 10 сек)
-        scheduler.add_job(
-            soft_gate_service.check_and_unlock_signals,
-            "interval",
-            seconds=config.SOFT_GATE_CHECK_INTERVAL,
-            id="check_unlock_signals"
-        )
         
         scheduler.start()
         dispatcher.workflow_data["scheduler"] = scheduler
