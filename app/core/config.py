@@ -11,7 +11,7 @@ class Config:
     """Конфигурация приложения."""
     
     # Bot settings
-    BOT_TOKEN = os.getenv("BOT_TOKEN", "6933838057:AAFO-gNcgx93PBdPIZORxP6oKQ2F5Ti3AMg")
+    BOT_TOKEN = os.getenv("BOT_TOKEN", "8159090114:AAF1oDAOZ-dYKrS-ue-1cgBo1uBFzkc0Gps")
     TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID", "534928819")
     
     # Database
