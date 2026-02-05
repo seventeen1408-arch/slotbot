@@ -5,6 +5,8 @@ Production-ready версия.
 
 import asyncio
 import logging
+import threading
+from http.server import HTTPServer, BaseHTTPRequestHandler
 from aiogram import Bot, Dispatcher, types
 from aiogram.fsm.storage.memory import MemoryStorage
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
@@ -19,6 +21,31 @@ from app.services.subscription import SubscriptionService
 from app.handlers import start, signals, text_handler, vip_upsell
 
 logger = get_logger(__name__)
+
+
+class HealthHandler(BaseHTTPRequestHandler):
+    """Обработчик для health check."""
+    
+    def do_GET(self):
+        """Ответить на GET запрос."""
+        self.send_response(200)
+        self.send_header('Content-type', 'text/plain')
+        self.end_headers()
+        self.wfile.write(b"OK")
+    
+    def log_message(self, format, *args):
+        """Подавить логирование HTTP запросов."""
+        pass
+
+
+def run_health_server():
+    """Запустить HTTP сервер для health check."""
+    try:
+        server = HTTPServer(("0.0.0.0", 8080), HealthHandler)
+        logger.info("🏥 Health check сервер запущен на 0.0.0.0:8080")
+        server.serve_forever()
+    except Exception as e:
+        logger.error(f"❌ Ошибка health check сервера: {e}", exc_info=True)
 
 
 async def on_startup(bot: Bot, dispatcher: Dispatcher) -> None:
@@ -102,6 +129,11 @@ async def main() -> None:
         logger.info("🧹 Удаление webhook и очистка очереди...")
         await bot.delete_webhook(drop_pending_updates=True)
         logger.info("✅ Webhook удален, очередь очищена")
+        
+        # Запустить health check сервер в отдельном потоке
+        health_thread = threading.Thread(target=run_health_server, daemon=True)
+        health_thread.start()
+        logger.info("✅ Health check сервер запущен")
         
         # Запустить polling
         logger.info("📡 Запуск polling...")
