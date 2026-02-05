@@ -98,6 +98,11 @@ async def main() -> None:
         dp.startup.register(on_startup)
         dp.shutdown.register(on_shutdown)
         
+        # Удалить webhook и очистить очередь
+        logger.info("🧹 Удаление webhook и очистка очереди...")
+        await bot.delete_webhook(drop_pending_updates=True)
+        logger.info("✅ Webhook удален, очередь очищена")
+        
         # Запустить polling
         logger.info("📡 Запуск polling...")
         await dp.start_polling(
