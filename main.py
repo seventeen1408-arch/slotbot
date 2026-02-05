@@ -40,9 +40,11 @@ class HealthHandler(BaseHTTPRequestHandler):
 
 def run_health_server():
     """Запустить HTTP сервер для health check."""
+    import os
     try:
-        server = HTTPServer(("0.0.0.0", 8080), HealthHandler)
-        logger.info("🏥 Health check сервер запущен на 0.0.0.0:8080")
+        port = int(os.getenv("PORT", 8080))
+        server = HTTPServer(("0.0.0.0", port), HealthHandler)
+        logger.info(f"🏥 Health check сервер запущен на 0.0.0.0:{port}")
         server.serve_forever()
     except Exception as e:
         logger.error(f"❌ Ошибка health check сервера: {e}", exc_info=True)
